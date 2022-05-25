@@ -60,4 +60,11 @@ public class PacketServiceImpl implements PacketService {
 		packetDvo = packetRepository.save(packetDvo);
 		return packetDvo.getId();
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	public PacketDto update(Long id, PacketDto packet) {
+		Packet packetDvo = PacketUtils.fromDTOtoDVO(packet);
+		packetDvo = packetRepository.saveAndFlush(packetDvo);
+		return PacketUtils.fromDVOtoDTO(packetDvo);
+	}
 }

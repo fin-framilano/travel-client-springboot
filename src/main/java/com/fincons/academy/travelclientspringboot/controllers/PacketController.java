@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,12 +50,18 @@ public class PacketController {
 	
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable("id") Long id) {
+		System.out.println("Eliminazione di " + id);
 		packetService.deleteById(id);
 	}
 	
 	@PostMapping
 	public Long create(@RequestBody PacketDto packet) {
 		return packetService.create(packet);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<PacketDto> update(@PathVariable("id")Long id, @RequestBody PacketDto packet) {
+		return new ResponseEntity<PacketDto>(packetService.update(id, packet), HttpStatus.OK);
 	}
 	
 

@@ -14,4 +14,6 @@ public interface PacketService {
 
 	void deleteById(Long id);
 
+	PacketDto update(Long id, PacketDto packet);
+
 }
